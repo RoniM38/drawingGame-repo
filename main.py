@@ -11,6 +11,8 @@ penSize = 20
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+COLOR_INACTIVE = pygame.Color("lightskyblue3")
+COLOR_ACTIVE = pygame.Color("dodgerblue2")
 
 penTool = pygame.image.load("pen.png")
 penTool = pygame.transform.scale(penTool, (50, 50))
@@ -152,7 +154,7 @@ class ToolBar:
         self.color_palette = []
         self.colors = [(255, 0, 0), (255, 180, 0), (255, 255, 0), (0, 255, 0), (0, 0, 255),
                        (128, 0, 128), (255, 100, 200), (0, 0, 0), (123, 63, 0)]
-        self.penSizeEntry = Entry(self.surface, (0, 0, 255), 20, self.y + (self.height-40),
+        self.penSizeEntry = Entry(self.surface, COLOR_INACTIVE, 20, self.y + (self.height-40),
                                   100, 30, 25, (0, 0, 255))
         self.board = None
         self.font = pygame.font.SysFont("Arial", 15)
@@ -187,8 +189,11 @@ class ToolBar:
     def checkEntryClick(self, pos):
         if self.penSizeEntry.rect.collidepoint(pos):
             self.penSizeEntry.clicked = True
+            self.penSizeEntry.color = COLOR_ACTIVE
+
         else:
             self.penSizeEntry.clicked = False
+            self.penSizeEntry.color = COLOR_INACTIVE
 
     def get_board(self, board):
         self.board = board
